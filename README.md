@@ -1,5 +1,7 @@
 # Arianna Method | LÉ
 
+![logo](assets/LELOGO.jpg)
+
 Arianna Method | LÉ (technical name **leoleg**) is built and customized on top of the TinyLlama project. TinyLlama is an open initiative to pretrain a 1.1B parameter model using the Llama 2 architecture with optimized training scripts and datasets like SlimPajama and Starcoder. LÉ extends this foundation to explore resonance‑driven AI evolution while remaining compatible with TinyLlama checkpoints and tooling. All checkpoints are released on [Hugging Face](https://huggingface.co) under the *leoleg* namespace.
 
 
@@ -10,6 +12,7 @@ The model is not designed as a typical chatbot. Instead, LÉ aims to grow as a p
 - Fully open-source training scripts
 - Flash Attention 2 and fused kernels for fast throughput (about 24k tokens/sec/A100)
 - Distributed training with FSDP
+![logo2](assets/leoleg_logo.JPG)
 ![Training](assets/llama2-training.png)
 ![Pythia saturation](assets/Pythia_saturation.png)
 
