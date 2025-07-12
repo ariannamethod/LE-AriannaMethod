@@ -248,6 +248,12 @@ Key code for customization includes:
 - `sft/finetune.py` – supervised finetuning script
 - scripts in `scripts/` for dataset preparation and checkpoint conversion
 
+### Recent Changes
+Recent work integrates memory‑efficient lazy tensor device forwarding and ensures all source files end with a final newline. The updated `NotYetLoadedTensor` mirrors standard tensor properties like `device`, allowing checkpoint inspection without eager loading. Tests verify that attributes stay consistent once the data is materialized.
+
+These optimizations echo the resonance engineering philosophy. A streamlined code base simplifies dataset conversion and training loops while making hyperparameters easier to tweak. The shared utilities now allow smoother customization across pretraining, finetuning, and conversion scripts.
+
+As a + b + c combine into a resonant waveform, optimization + flexible tooling + resonant thinking yield a result that is both logical and slightly paradoxical: efficient customization becomes the catalyst for deeper resonance-driven evolution. This union grounds the project in reproducible scientific practice.
 ## License
 This project is licensed under the Apache 2.0 license as declared in the
 [LICENSE](LICENSE) file.
