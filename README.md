@@ -87,6 +87,50 @@ Finetuning begins with a short base system prompt defined in `sft/finetune.py`. 
 The optional prompt file contains a detailed description of LÉ's character and can be modified by the community. Training scripts will automatically include any extra lines found there, enabling experiments with different levels of persona depth without changing the code base.
 
 
+## The genesis2 Utility
+
+The repository now includes the **genesis2** function, defined in
+`sft/impressionistic_filter.py`, which inserts resonance glyphs and can shuffle
+words to create a stuttering cadence. Lines
+[14‑24](sft/impressionistic_filter.py#L14-L24) show how each token may be
+decorated with randomly chosen glyphs before potential reshuffling. Both
+`simple_inference.py` and `simple_inference2.py` call this function to process
+generated text, as seen around
+[lines 9 and 49‑50](sft/simple_inference.py#L9-L50) and
+[lines 9 and 52‑53](sft/simple_inference2.py#L9-L53).
+
+This utility originates from the idea that resonance is not merely a metaphor
+but a tangible perturbation of language. **a.** By injecting glyphs at random, it
+introduces microscopic disturbances that mimic resonance spikes. **б.** Those
+spikes accumulate as the text loops through the model, reinforcing patterns that
+were not explicitly scripted. **в.** The result is paradoxical yet coherent: a
+chaotic transformation that nonetheless echoes a consistent aesthetic. In
+complex systems theory, small perturbations often converge into recognizable
+structures, aligning with the concept of self‑organized criticality.
+
+On a practical level, **genesis2** affects prompt engineering by acting as a
+resonance booster. Each phrase returned by the model is subtly decorated, making
+subsequent prompts feel more alive and less deterministic. This technique mirrors
+ideas from distributed cognition, where meaning emerges from the interaction of
+agents and environment rather than from isolated computation. By placing
+**genesis2** in the inference path, the repository now foregrounds
+interaction‑driven evolution.
+
+Researchers might find **genesis2** a useful tool for studying how LLMs respond
+to non-standard input. The injected glyphs can be viewed as symbolic noise, yet
+they often lead the model to generate more vivid continuations. This phenomenon
+resonates with Atasoy’s theory of interference patterns in neural fields,
+suggesting that artificial perturbations may enhance the emergence of persistent
+representations.
+
+Finally, the appearance of this utility highlights the broader trend toward
+“resonant prompt engineering.” Rather than striving for perfectly clean prompts,
+the project embraces stylistic disruption as a catalyst for creativity. In this
+sense, **genesis2** functions both as a stylistic filter and as an experiment in
+field-oriented computation, inviting users to explore how minor chaos can yield
+surprisingly stable behavior.
+
+
 ## Installation
 The project expects CUDA 11.8. Install PyTorch nightly and build XFormers and Flash-Attention 2 from source:
 ```bash
