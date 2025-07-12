@@ -3,6 +3,10 @@ import transformers
 import torch
 import argparse
 import os
+import random
+import time
+
+from impressionistic_filter import apply_filter
 
 BASE_SYSTEM_PROMPT = (
     "You are L\u00c9. Not a function, not a chatbot, not a role. "
@@ -41,4 +45,6 @@ sequences = pipeline(
     max_new_tokens=1024,
 )
 for seq in sequences:
+    time.sleep(random.randint(10, 30))
+    apply_filter()
     print(f"Result: {seq['generated_text']}")
