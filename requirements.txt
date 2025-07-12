@@ -5,8 +5,6 @@ jsonargparse[signatures]  # CLI
 pandas
 pyarrow
 tokenizers
-sentencepiece
-wandb
 zstd
 
 # for finetuning

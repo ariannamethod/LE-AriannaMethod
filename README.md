@@ -188,4 +188,4 @@ Key code for customization includes:
 - scripts in `scripts/` for dataset preparation and checkpoint conversion
 
 ## License
-This repository retains the original MIT license.
+This project is licensed under the Apache 2.0 license.
