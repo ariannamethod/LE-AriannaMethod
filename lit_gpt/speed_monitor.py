@@ -252,7 +252,7 @@ class SpeedMonitorBase:
             )
             if lengths is not None:
                 elapsed_lengths = int(self.history_lengths[-1]) - int(self.history_lengths[0])
-                avg_length = elapsed_lengths / elapsed_batches  
+                avg_length = elapsed_lengths / elapsed_batches
                 metrics.update(
                     {
                         "throughput/tokens_per_sec": samples_per_sec * avg_length,

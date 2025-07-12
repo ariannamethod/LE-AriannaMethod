@@ -150,7 +150,7 @@ def copy_weights_llama(
         elif "transformer.h" in name:
             from_name, number = layer_template(name, 2)
             to_name = weight_map[from_name]
-            
+
             if to_name is None:
                 continue
             to_name = to_name.format(number)
@@ -267,16 +267,16 @@ def convert_config_lit_to_hf(lit_config_dict: dict) -> dict:
 
     }
     hf_config_dict = get_leoleg_init_hf_config()
-    
+
     for lit_key, hf_key in lit_hf_mapping.items():
         hf_config_dict[hf_key] = lit_config_dict[lit_key]
     return hf_config_dict
 
 
 @torch.inference_mode()
-def convert_lit_checkpoint(*, 
-    checkpoint_name: str, 
-    out_dir: Path, 
+def convert_lit_checkpoint(*,
+    checkpoint_name: str,
+    out_dir: Path,
     model_name: str,
     model_only: bool = True) -> None:
     config = Config.from_name(model_name)

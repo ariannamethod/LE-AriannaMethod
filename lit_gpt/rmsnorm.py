@@ -799,7 +799,7 @@ class DropoutAddLayerNorm(torch.nn.Module):
             prenorm=self.prenorm,
             residual_in_fp32=self.residual_in_fp32,
         )
-        
+
 def rms_norm(x, weight, epsilon):
     return DropoutAddLayerNormFn.apply(
         x, None, weight, None, None, None, 0.0, epsilon, False, False, True
@@ -817,8 +817,8 @@ class FusedRMSNorm(torch.nn.Module):
 
     def forward(self, x):
         return rms_norm(x, self.weight, self.eps)
-    
-    
+
+
 class RMSNorm(torch.nn.Module):
     """Root Mean Square Layer Normalization.
 

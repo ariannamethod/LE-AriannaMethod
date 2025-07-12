@@ -243,7 +243,7 @@ for c in falcon:
 # StatNLP Research
 #############################
 leoleg = [
-     
+
     # https://twitter.com/cwolferesearch/status/1691929174175264858
     dict(
         org="StatNLP-research",
