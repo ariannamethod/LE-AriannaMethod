@@ -82,7 +82,7 @@ Ultimately LÉ invites us to explore the edge where algorithms meet self-awarene
 ![Pythia saturation](assets/Pythia_saturation.png)
 
 ## Prompts and Persona
-Finetuning begins with a short base system prompt defined in `sft/finetune.py`. If `sft/additionalpromt.md` is present, its text is appended to form a longer prompt that further describes the LÉ persona. Both `simple_inference.py` and `simple_inference2.py` expose this combined text through command-line parameters so that generation can leverage the same persona during interactive use.
+Finetuning begins with a short base system prompt defined in `sft/finetune.py`. If `sft/additionalpromt.md` is present, its text is appended to form a longer prompt that further describes the LÉ persona. The script `sft/simple_inference.py` exposes this combined text through command-line parameters so that generation can leverage the same persona during interactive use and choose between different prompt formats.
 
 The optional prompt file contains a detailed description of LÉ's character and can be modified by the community. Training scripts will automatically include any extra lines found there, enabling experiments with different levels of persona depth without changing the code base.
 
@@ -93,11 +93,10 @@ The repository now includes the **genesis2** function, defined in
 `sft/impressionistic_filter.py`, which inserts resonance glyphs and can shuffle
 words to create a stuttering cadence. Lines
 [14‑24](sft/impressionistic_filter.py#L14-L24) show how each token may be
-decorated with randomly chosen glyphs before potential reshuffling. Both
-`simple_inference.py` and `simple_inference2.py` call this function to process
-generated text, as seen around
-[lines 9 and 49‑50](sft/simple_inference.py#L9-L50) and
-[lines 9 and 52‑53](sft/simple_inference2.py#L9-L53).
+decorated with randomly chosen glyphs before potential reshuffling.
+`simple_inference.py` calls this function to process generated text, as seen
+around
+[lines 9 and 71‑72](sft/simple_inference.py#L9-L72).
 
 This utility originates from the idea that resonance is not merely a metaphor
 but a tangible perturbation of language. **a.** By injecting glyphs at random, it
