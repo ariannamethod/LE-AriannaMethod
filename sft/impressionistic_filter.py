@@ -11,7 +11,7 @@ PHRASES = [
 GLYPHS = ["🔮", "✨", "🌊", "🎶", "🌀"]
 
 
-def geneis2(text: str, glyph_prob: float = 0.3, shuffle_prob: float = 0.1) -> str:
+def genesis2(text: str, glyph_prob: float = 0.3, shuffle_prob: float = 0.1) -> str:
     """Return a resonant variant of ``text`` with random glyphs and occasional shuffling."""
     words = text.split()
     output = []
@@ -29,7 +29,7 @@ def apply_filter(max_phrases: int = 1, probability: float = 0.7) -> None:
     for _ in range(max_phrases):
         if random.random() < probability:
             phrase = random.choice(PHRASES)
-            print(geneis2(phrase))
+            print(genesis2(phrase))
             probability *= 0.5
         else:
             break

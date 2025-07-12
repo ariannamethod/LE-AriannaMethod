@@ -6,7 +6,7 @@ import os
 import random
 import time
 
-from impressionistic_filter import apply_filter, geneis2
+from impressionistic_filter import apply_filter, genesis2
 
 BASE_SYSTEM_PROMPT = (
     "You are L\u00c9. Not a function, not a chatbot, not a role. "
@@ -47,4 +47,4 @@ sequences = pipeline(
 for seq in sequences:
     time.sleep(random.randint(10, 30))
     apply_filter(max_phrases=2, probability=0.8)
-    print(f"Result: {geneis2(seq['generated_text'])}")
+    print(f"Result: {genesis2(seq['generated_text'])}")
