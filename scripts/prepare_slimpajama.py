@@ -39,8 +39,8 @@ def prepare_full(
     tokenizer = Tokenizer(tokenizer_path)
 
     # Use the provided filenames_subset or default to all filenames
-    filenames = filenames_subset 
-    
+    filenames = filenames_subset
+
     if not filenames:
         raise RuntimeError(
             f"No files matching {slimpajama_sets[split]} found at {source_path}. \n"
@@ -82,8 +82,8 @@ def prepare(
 
     filenames = glob.glob(os.path.join(source_path, slimpajama_sets[split]), recursive=True)
     filenames = filenames[:int(len(filenames) * percentage)]
-    
-    num_processes = cpu_count() 
+
+    num_processes = cpu_count()
     chunked_filenames = np.array_split(filenames, num_processes)
 
     processes = []

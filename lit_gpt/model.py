@@ -48,11 +48,11 @@ class GPT(nn.Module):
             torch.nn.init.normal_(module.weight, mean=0.0, std=math.sqrt(2.0 / 5 / self.config.n_embd))
             if module.bias is not None:
                 torch.nn.init.zeros_(module.bias)
-        # GPT-NeoX       
+        # GPT-NeoX
         for name, p in module.named_parameters():
             if (name == "proj.weight" and isinstance(module, LLaMAMLP)) or (name == "w3.weight" and isinstance(module, SwiGLU) or (name=="proj.weight" and isinstance(module, CausalSelfAttention))):  #if use xformer swiglu, fc2 layer will be renamed to w3
                 nn.init.normal_(p, mean=0.0, std=1 / math.sqrt(self.config.n_embd)  /  n_layer)
-        
+
 
     def reset_cache(self) -> None:
         self.kv_caches.clear()
@@ -99,7 +99,7 @@ class GPT(nn.Module):
 
         # forward the model itself
         x = self.transformer.wte(idx)  # token embeddings of shape (b, t, n_embd)
-            
+
         if not use_kv_cache:
             for block in self.transformer.h:
                 x, *_ = block(x, (cos, sin), max_seq_length)
@@ -177,7 +177,7 @@ class Block(nn.Module):
                     "No checkpoint amongst the ones we support uses this configuration"
                     " (non-parallel residual and shared attention norm)."
                 )
-            
+
             x = x + h
             x = x + self.mlp(self.norm_2(x))
         return x, new_kv_cache
@@ -224,8 +224,8 @@ class CausalSelfAttention(nn.Module):
         #     v = v.expand(B, self.config.n_query_groups, q_per_kv, T, self.config.head_size)
 
         q = q.reshape(B,  T, -1, self.config.head_size)  # (B, T, nh_q, hs)
-        k = k.reshape(B,  T, -1, self.config.head_size)  
-        v = v.reshape(B,  T, -1, self.config.head_size)  
+        k = k.reshape(B,  T, -1, self.config.head_size)
+        v = v.reshape(B,  T, -1, self.config.head_size)
 
         cos, sin = rope
 
@@ -233,9 +233,9 @@ class CausalSelfAttention(nn.Module):
         # fused rope expect (batch_size, seqlen, nheads, headdim)
         q = apply_rotary_emb_func(q, cos, sin, False, True)
         k = apply_rotary_emb_func(k, cos, sin, False, True)
-        
+
         # n_elem = int(self.config.rotary_percentage * self.config.head_size)
-    
+
         # q_roped = apply_rope(q[..., :n_elem], cos.repeat(1,2), sin.repeat(1,2))
         # k_roped = apply_rope(k[..., :n_elem], cos.repeat(1,2), sin.repeat(1,2))
         # print( (q_roped - q).sum())
@@ -269,7 +269,7 @@ class CausalSelfAttention(nn.Module):
         self, q: torch.Tensor, k: torch.Tensor, v: torch.Tensor, mask: Optional[torch.Tensor] = None
     ):
         scale = 1.0 / math.sqrt(self.config.head_size)
-        
+
         if (
             FlashAttention2Available
             and mask is None

@@ -34,8 +34,8 @@ def prepare_full(
     tokenizer = Tokenizer(tokenizer_path)
 
     # Use the provided filenames_subset or default to all filenames
-    filenames = filenames_subset 
-    
+    filenames = filenames_subset
+
     if not filenames:
         raise RuntimeError(
             f"No files matching  found at {source_path}. \n"

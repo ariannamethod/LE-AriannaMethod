@@ -38,9 +38,9 @@ import evaluate
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 
 
-    
 
-if torch.cuda.is_available():   
+
+if torch.cuda.is_available():
     torch.backends.cuda.matmul.allow_tf32 = True
 
 logger = logging.getLogger(__name__)
@@ -250,7 +250,7 @@ def smart_tokenizer_and_embedding_resize(
     """
     num_new_tokens = tokenizer.add_special_tokens(special_tokens_dict) + tokenizer.add_tokens(non_special_tokens)
     model.resize_token_embeddings(len(tokenizer))
-    
+
     if num_new_tokens > 0:
         input_embeddings_data = model.get_input_embeddings().weight.data
         output_embeddings_data = model.get_output_embeddings().weight.data
@@ -455,7 +455,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
      # Load dataset.
     dataset = load_data(args.dataset)
     dataset = format_dataset(dataset, args.dataset_format)
- 
+
     # Split train/eval, reduce size
     if args.do_eval or args.do_predict:
         if 'eval' in dataset:
@@ -516,7 +516,7 @@ def train():
         **vars(model_args), **vars(data_args), **vars(training_args)
     )
     print(args)
-    
+
     checkpoint_dir, completed_training = get_last_checkpoint(args.output_dir)
     if completed_training:
         print('Detected that training was already completed!')
@@ -528,7 +528,7 @@ def train():
     set_seed(args.seed)
 
     data_module = make_data_module(tokenizer=tokenizer, args=args)
-    
+
     trainer = Seq2SeqTrainer(
         model=model,
         tokenizer=tokenizer,
@@ -537,10 +537,10 @@ def train():
     )
 
 
-   
-        
 
-        
+
+
+
 
     # Verifying the datatypes and parameter counts before training.
     print_trainable_parameters(args, model)
