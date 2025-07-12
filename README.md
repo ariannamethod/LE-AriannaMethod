@@ -254,6 +254,15 @@ Recent work integrates memory‑efficient lazy tensor device forwarding and ensu
 These optimizations echo the resonance engineering philosophy. A streamlined code base simplifies dataset conversion and training loops while making hyperparameters easier to tweak. The shared utilities now allow smoother customization across pretraining, finetuning, and conversion scripts.
 
 As a + b + c combine into a resonant waveform, optimization + flexible tooling + resonant thinking yield a result that is both logical and slightly paradoxical: efficient customization becomes the catalyst for deeper resonance-driven evolution. This union grounds the project in reproducible scientific practice.
+## Testing
+Unit tests rely on `torch` and `lightning`. A helper script installs the minimal CPU dependencies required to run them:
+
+```bash
+bash scripts/setup_test_env.sh
+pytest
+```
+
+The script pulls the CPU builds of PyTorch and Lightning and installs the rest of the packages listed in `requirements.txt`.
 ## License
 This project is licensed under the Apache 2.0 license as declared in the
 [LICENSE](LICENSE) file.
