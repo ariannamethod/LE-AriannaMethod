@@ -1,4 +1,4 @@
-# ARIANNA METHOD 8.0 | LÉ
+# Arianna Method | LÉ
 
 ![logo](assets/LELOGO.jpg)
 
