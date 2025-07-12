@@ -162,9 +162,27 @@ class NotYetLoadedTensor:
 
     def __getattr__(self, name):
         # properties
-        ## TODO: device, is_...??
         ## TODO: mH, mT, H, T, data, imag, real
         ## name ???
+        if name == "device":
+            # the real device information is stored in the storage info
+            device = self.storageinfo[3]
+            return torch.device(device)
+        device_flags = {
+            "is_cuda": "cuda",
+            "is_cpu": "cpu",
+            "is_xpu": "xpu",
+            "is_mps": "mps",
+            "is_ort": "ort",
+            "is_xla": "xla",
+            "is_ipu": "ipu",
+            "is_metal": "metal",
+            "is_hip": "hip",
+            "is_meta": "meta",
+            "is_privateuseone": "privateuseone",
+        }
+        if name in device_flags:
+            return self.device.type == device_flags[name]
         if name in {
             "dtype",
             "grad",
