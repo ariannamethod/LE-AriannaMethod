@@ -229,7 +229,7 @@ def check_conversion_supported(lit_weights: Dict[str, torch.Tensor]) -> None:
         raise NotImplementedError("Converting models finetuned with adapter not yet supported.")
 
 
-def get_tinyllama_init_hf_config() -> dict:
+def get_leoleg_init_hf_config() -> dict:
     return {
         "architectures": ["LlamaForCausalLM"],
         "bos_token_id": 1,
@@ -266,7 +266,7 @@ def convert_config_lit_to_hf(lit_config_dict: dict) -> dict:
         "norm_eps": "rms_norm_eps",
 
     }
-    hf_config_dict = get_tinyllama_init_hf_config()
+    hf_config_dict = get_leoleg_init_hf_config()
     
     for lit_key, hf_key in lit_hf_mapping.items():
         hf_config_dict[hf_key] = lit_config_dict[lit_key]

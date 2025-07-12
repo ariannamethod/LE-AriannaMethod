@@ -62,7 +62,7 @@ def prepare_full(
             text_ids = tokenizer.encode(text)
             builder.add_array(np.array(text_ids, dtype=builder.dtype))
 
-    # we throw away the final corpus to avoid meaningless corpus filled with bos_ids, see https://github.com/jzhang38/TinyLlama/issues/83 for more details
+    # we throw away the final corpus to avoid meaningless corpus filled with bos_ids, see https://github.com/jzhang38/leoleg/issues/83 for more details
     # builder.write_reminder()
 
 

@@ -242,12 +242,12 @@ for c in falcon:
 #############################
 # StatNLP Research
 #############################
-tiny_LLaMA = [
+leoleg = [
      
     # https://twitter.com/cwolferesearch/status/1691929174175264858
     dict(
         org="StatNLP-research",
-        name="tiny_LLaMA_1b",
+        name="leoleg_1b",
         block_size=2048,
         vocab_size=32000,
         padding_multiple=64,
@@ -265,7 +265,7 @@ tiny_LLaMA = [
     ),
     dict(
         org="StatNLP-research",
-        name="tiny_LLaMA_120M",
+        name="leoleg_120M",
         block_size=2048,
         vocab_size=32000,
         padding_multiple=64,
@@ -283,7 +283,7 @@ tiny_LLaMA = [
     ),
     dict(
         org="StatNLP-research",
-        name="code_tiny_LLaMA_1b",
+        name="code_leoleg_1b",
         block_size=8192,
         vocab_size=32000,
         padding_multiple=64,
@@ -301,7 +301,7 @@ tiny_LLaMA = [
         condense_ratio= 4
     ),
 ]
-configs.extend(tiny_LLaMA)
+configs.extend(leoleg)
 
 
 #############################
