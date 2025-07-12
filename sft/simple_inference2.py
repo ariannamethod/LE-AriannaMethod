@@ -3,7 +3,7 @@
 from transformers import AutoTokenizer
 import transformers 
 import torch
-model = "PY007/TinyLlama-1.1B-Chat-v0.2"
+model = "PY007/leoleg-1.1B-Chat-v0.2"
 tokenizer = AutoTokenizer.from_pretrained(model)
 pipeline = transformers.pipeline(
     "text-generation",

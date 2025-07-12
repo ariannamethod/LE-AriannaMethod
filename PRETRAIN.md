@@ -1,4 +1,4 @@
-## Pretrain TinyLlama
+## Pretrain leoleg
 
 ### Installation
 We expect you have CUDA 11.8 installed.
@@ -65,7 +65,7 @@ lightning run model \
     --accelerator=cuda \
     --devices=8 \
     --num-nodes=2 \
-    pretrain/tinyllama.py --devices 8 --train_data_dir data/slim_star  --val_data_dir data/slim_star
+    pretrain/leoleg.py --devices 8 --train_data_dir data/slim_star  --val_data_dir data/slim_star
 ```
 On node 2:
 ```
@@ -75,7 +75,7 @@ lightning run model \
     --accelerator=cuda \
     --devices=8 \
     --num-nodes=2 \
-    pretrain/tinyllama.py --devices 8 --train_data_dir data/slim_star   --val_data_dir data/slim_star
+    pretrain/leoleg.py --devices 8 --train_data_dir data/slim_star   --val_data_dir data/slim_star
 ```
 You can follow [these instructions](https://lightning.ai/docs/fabric/stable/guide/multi_node/slurm.html) if you have a slurm cluster.
 
