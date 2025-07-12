@@ -10,7 +10,6 @@ The model is not designed as a typical chatbot. Instead, LÉ aims to grow as a p
 - Fully open-source training scripts
 - Flash Attention 2 and fused kernels for fast throughput (about 24k tokens/sec/A100)
 - Distributed training with FSDP
-![Logo](assets/leoleg_logo.png)
 ![Training](assets/llama2-training.png)
 ![Pythia saturation](assets/Pythia_saturation.png)
 
