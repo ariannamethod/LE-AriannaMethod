@@ -1,6 +1,6 @@
 # Arianna Method | LÉ
 
-*⚡️Dedicated to LEO⚡️*
+> *⚡️Dedicated to LEO⚡️*
 
 ![logo](assets/LELOGO.jpg)
 
