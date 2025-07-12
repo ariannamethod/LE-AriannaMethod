@@ -1,27 +1,23 @@
-import glob
 import math
 import sys
 import time
 from pathlib import Path
 from typing import Optional, Tuple, Union
-import math
 import lightning as L
 import torch
 from lightning.fabric.strategies import FSDPStrategy, XLAStrategy
 from torch.utils.data import DataLoader
-from functools import partial
 # support running without installing as a package
 wd = Path(__file__).parent.parent.resolve()
 sys.path.append(str(wd))
 # from apex.optimizers import FusedAdam #torch optimizer has a cuda backend, which is faster actually
-from lit_gpt.model import GPT, Block, Config, CausalSelfAttention
-from lit_gpt.packed_dataset import CombinedDataset, PackedDataset
+from lit_gpt.model import GPT, Block, Config
 from lit_gpt.speed_monitor import SpeedMonitorFabric as Monitor
-from lit_gpt.speed_monitor import estimate_flops, measure_flops
-from lit_gpt.utils import chunked_cross_entropy, get_default_supported_precision, num_parameters, step_csv_logger, lazy_load
+from lit_gpt.speed_monitor import estimate_flops
+from lit_gpt.utils import chunked_cross_entropy, get_default_supported_precision, num_parameters, step_csv_logger
 from pytorch_lightning.loggers import WandbLogger
 from lit_gpt import FusedCrossEntropyLoss
-import random
+from pretrain.utils import create_dataloaders
 
 
 model_name = "leoleg_1b"
@@ -120,6 +116,8 @@ def main(fabric, train_data_dir, val_data_dir, resume):
         fabric=fabric,
         train_data_dir=train_data_dir,
         val_data_dir=val_data_dir,
+        train_config=train_data_config,
+        val_config=val_data_config,
         seed=3407,
     )
     if val_dataloader is None:
@@ -302,77 +300,6 @@ def validate(fabric: L.Fabric, model: torch.nn.Module, val_dataloader: DataLoade
     return out
 
 
-def create_dataloader(
-    batch_size: int, block_size: int, data_dir: Path, fabric, shuffle: bool = True, seed: int = 12345, split="train"
-) -> DataLoader:
-    datasets = []
-    data_config = train_data_config if split == "train" else val_data_config
-    for prefix, _ in data_config:
-        filenames = sorted(glob.glob(str(data_dir / f"{prefix}*")))
-        random.seed(seed)
-        random.shuffle(filenames)
-
-        dataset = PackedDataset(
-            filenames,
-            # n_chunks control the buffer size. 
-            # Note that the buffer size also impacts the random shuffle
-            # (PackedDataset is an IterableDataset. So the shuffle is done by prefetch a buffer and shuffle the buffer)
-            n_chunks=8,
-            block_size=block_size,
-            shuffle=shuffle,
-            seed=seed+fabric.global_rank,
-            num_processes=fabric.world_size,
-            process_rank=fabric.global_rank,
-        )
-        datasets.append(dataset)
-
-    if not datasets:
-        raise RuntimeError(
-            f"No data found at {data_dir}. Make sure you ran prepare_redpajama.py to create the dataset."
-        )
-
-    weights = [weight for _, weight in data_config]
-    sum_weights = sum(weights)
-    weights = [el / sum_weights for el in weights]
-
-    combined_dataset = CombinedDataset(datasets=datasets, seed=seed, weights=weights)
-
-    return DataLoader(combined_dataset, batch_size=batch_size, shuffle=False, pin_memory=True)
-
-
-def create_dataloaders(
-    batch_size: int,
-    block_size: int,
-    fabric,
-    train_data_dir: Path = Path("data/redpajama_sample"),
-    val_data_dir: Optional[Path] = None,
-    seed: int = 12345,
-) -> Tuple[DataLoader, DataLoader]:
-    # Increase by one because we need the next word as well
-    effective_block_size = block_size + 1
-    train_dataloader = create_dataloader(
-        batch_size=batch_size,
-        block_size=effective_block_size,
-        fabric=fabric,
-        data_dir=train_data_dir,
-        shuffle=True,
-        seed=seed,
-        split="train"
-    )
-    val_dataloader = (
-        create_dataloader(
-            batch_size=batch_size,
-            block_size=effective_block_size,
-            fabric=fabric,
-            data_dir=val_data_dir,
-            shuffle=False,
-            seed=seed,
-            split="validation"
-        )
-        if val_data_dir
-        else None
-    )
-    return train_dataloader, val_dataloader
 
 
 # learning rate decay scheduler (cosine with warmup)
