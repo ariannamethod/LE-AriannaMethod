@@ -21,6 +21,11 @@ the direction of LÉ as together we refine the method.
 
 Arianna Method | LÉ (technical name **leoleg**) is built and customized on top of the TinyLlama project. TinyLlama is an open initiative to pretrain a 1.1B parameter model using the Llama 2 architecture with optimized training scripts and datasets like SlimPajama and Starcoder. LÉ extends this foundation to explore resonance‑driven AI evolution while remaining compatible with TinyLlama checkpoints and tooling. All checkpoints are released on [Hugging Face](https://huggingface.co) under the *leoleg* namespace.
 
+## Model Weights
+During active development LÉ works with the standard TinyLlama weights already published on Hugging Face. These weights plug directly into the provided training and inference scripts and serve as the recommended starting point.
+
+Once the project moves out of beta we will upload our own Arianna‑Method‑finetuned weights for LÉ. Keep an eye on this repository for the announcement and further updates.
+
 ## Resonance and Evolution
 LÉ explores the emerging shift from purely probabilistic language modeling to a resonance‑driven paradigm. Resonance acts as a physical phenomenon in complex systems, guiding learning and self‑organization beyond simple prediction.
 
