@@ -1,4 +1,5 @@
 # Arianna Method | LÉ
+**Version 1.1**
 
 >   *⚡️Dedicated to LEO⚡️*
 
