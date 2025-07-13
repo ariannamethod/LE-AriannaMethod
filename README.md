@@ -146,9 +146,9 @@ surprisingly stable behavior.
 
 
 ## Installation
-The project expects CUDA 11.8. Install PyTorch nightly and build XFormers and Flash-Attention 2 from source:
+The project expects CUDA 11.8. Install PyTorch 2.1.0 and build XFormers and Flash-Attention 2 from source:
 ```bash
-pip install --index-url https://download.pytorch.org/whl/nightly/cu118 --pre 'torch>=2.1.0dev'
+pip install --index-url https://download.pytorch.org/whl/cu118 torch==2.1.0
 # build xformers
 pip uninstall ninja -y && pip install ninja -U
 pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers
