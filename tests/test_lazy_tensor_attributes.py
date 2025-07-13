@@ -1,3 +1,6 @@
+import pytest
+
+pytest.importorskip("torch")
 import torch
 from lit_gpt.utils import incremental_save, lazy_load, NotYetLoadedTensor
 
