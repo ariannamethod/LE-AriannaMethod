@@ -6,8 +6,8 @@ from transformers import AutoTokenizer
 import transformers
 import torch
 
-from impressionistic_filter import apply_filter, genesis2
-from genesis4 import genesis4
+from .impressionistic_filter import apply_filter, genesis2
+from .genesis4 import genesis4
 
 ACK_WORDS = {"угу", "да", "нет", "ок", "ага"}
 
