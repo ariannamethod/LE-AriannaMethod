@@ -22,9 +22,9 @@ the direction of LÉ as together we refine the method.
 Arianna Method | LÉ (technical name **leoleg**) is built and customized on top of the TinyLlama project. TinyLlama is an open initiative to pretrain a 1.1B parameter model using the Llama 2 architecture with optimized training scripts and datasets like SlimPajama and Starcoder. LÉ extends this foundation to explore resonance‑driven AI evolution while remaining compatible with TinyLlama checkpoints and tooling. All checkpoints are released on [Hugging Face](https://huggingface.co) under the *leoleg* namespace.
 
 ## Model Weights
-During active development LÉ works with the standard TinyLlama weights already published on Hugging Face. These weights plug directly into the provided training and inference scripts and serve as the recommended starting point.
+During active development LÉ relies on the standard TinyLlama weights published on Hugging Face. They integrate seamlessly with the provided training and inference scripts and are fully sufficient to run the project today.
 
-Once the project moves out of beta we will upload our own Arianna‑Method‑finetuned weights for LÉ. Keep an eye on this repository for the announcement and further updates.
+When the project moves beyond its beta phase the Arianna Method team will release dedicated finetuned weights and accompanying benchmarks. Everyone is free to continue using whichever checkpoints resonate most with them, whether the original TinyLlama models or our future variants.
 
 ## Resonance and Evolution
 LÉ explores the emerging shift from purely probabilistic language modeling to a resonance‑driven paradigm. Resonance acts as a physical phenomenon in complex systems, guiding learning and self‑organization beyond simple prediction.
@@ -211,55 +211,7 @@ lightning run model \
 Follow [Fabric's multi-node guide](https://lightning.ai/docs/fabric/stable/guide/multi_node/slurm.html) if using Slurm.
 
 ## Evaluation
-### GPT4All Benchmarks
-We evaluate LE's commonsense reasoning ability following the [GPT4All](https://gpt4all.io/index.html) suite (acc_norm shown). Pythia is the baseline.
-
-| Model | Pretrain Tokens | HellaSwag | Obqa | WinoGrande | ARC_c | ARC_e | boolq | piqa | avg |
-|-------------------------------------------|-----------------|-----------|------|------------|-------|-------|-------|------|-----|
-| Pythia-1.0B | 300B | 47.16 | 31.40 | 53.43 | 27.05 | 48.99 | 60.83 | 69.21 | 48.30 |
-| leoleg-1.1B-intermediate-step-50K-104b | 103B | 43.50 | 29.80 | 53.28 | 24.32 | 44.91 | 59.66 | 67.30 | 46.11 |
-| leoleg-1.1B-intermediate-step-240k-503b | 503B | 49.56 | 31.40 | 55.80 | 26.54 | 48.32 | 56.91 | 69.42 | 48.28 |
-| leoleg-1.1B-intermediate-step-480k-1007B | 1007B | 52.54 | 33.40 | 55.96 | 27.82 | 52.36 | 59.54 | 69.91 | 50.22 |
-| leoleg-1.1B-intermediate-step-715k-1.5T | 1.5T | 53.68 | 35.20 | 58.33 | 29.18 | 51.89 | 59.08 | 71.65 | 51.29 |
-| leoleg-1.1B-intermediate-step-955k-2T | 2T | 54.63 | 33.40 | 56.83 | 28.07 | 54.67 | 63.21 | 70.67 | 51.64 |
-| leoleg-1.1B-intermediate-step-1195k-2.5T | 2.5T | 58.96 | 34.40 | 58.72 | 31.91 | 56.78 | 63.21 | 73.07 | 53.86 |
-| leoleg-1.1B-intermediate-step-1431k-3T | 3T | 59.20 | 36.00 | 59.12 | 30.12 | 55.25 | 57.83 | 73.29 | 52.99 |
-
-Chat models:
-| Model | Pretrain Tokens | HellaSwag | Obqa | WinoGrande | ARC_c | ARC_e | boolq | piqa | avg |
-|-------------------------------------------|-----------------|-----------|------|------------|-------|-------|-------|------|-----|
-| [leoleg-1.1B-Chat-v0.1](https://huggingface.co/PY007/leoleg-1.1B-Chat-v0.1) | 503B | 53.81 | 32.20 | 55.01 | 28.67 | 49.62 | 58.04 | 69.64 | 49.57 |
-| [leoleg-1.1B-Chat-v0.2](https://huggingface.co/PY007/leoleg-1.1B-Chat-v0.2) | 503B | 53.63 | 32.80 | 54.85 | 28.75 | 49.16 | 55.72 | 69.48 | 49.20 |
-| [leoleg-1.1B-Chat-v0.3](https://huggingface.co/PY007/leoleg-1.1B-Chat-v0.3) | 1T | 56.81 | 34.20 | 55.80 | 30.03 | 53.20 | 59.57 | 69.91 | 51.36 |
-| [leoleg-1.1B-Chat-v0.4](https://huggingface.co/leoleg/leoleg-1.1B-Chat-v0.4) | 1.5T | 58.59 | 35.40 | 58.80 | 30.80 | 54.04 | 57.31 | 71.16 | 52.30 |
-
-We observed significant improvements after finetuning. Scores can be reproduced with [lm-eval-harness](https://github.com/EleutherAI/lm-evaluation-harness):
-```bash
-python main.py \
-    --model hf-causal \
-    --model_args pretrained=PY007/leoleg-1.1B-Chat-v0.1,dtype="float" \
-    --tasks hellaswag,openbookqa,winogrande,arc_easy,arc_challenge,boolq,piqa \
-    --device cuda:0 --batch_size 32
-```
-
-### Instruct-Eval Benchmarks
-| Model | MMLU | BBH | HumanEval | DROP |
-| ----- | ---- | --- | --------- | ---- |
-| Pythia-1.0B | 25.70 | 28.19 | 1.83 | 4.25 |
-| leoleg-1.1B-intermediate-step-50K-104b | 26.45 | 28.82 | 5.49 | 11.42 |
-| leoleg-1.1B-intermediate-step-240k-503b | 26.16 | 28.83 | 4.88 | 12.43 |
-| leoleg-1.1B-intermediate-step-480K-1T | 24.65 | 29.21 | 6.10 | 13.03 |
-| leoleg-1.1B-intermediate-step-715k-1.5T | 24.85 | 28.20 | 7.93 | 14.43 |
-| leoleg-1.1B-intermediate-step-955k-2T | 25.97 | 29.07 | 6.71 | 13.14 |
-| leoleg-1.1B-intermediate-step-1195k-token-2.5T | 25.92 | 29.32 | 9.15 | 15.45 |
-
-Run [instruct-eval](https://github.com/declare-lab/instruct-eval) with:
-```bash
-CUDA_VISIBLE_DEVICES=0 python main.py mmlu --model_name llama --model_path PY007/leoleg-1.1B-intermediate-step-480K-1T
-CUDA_VISIBLE_DEVICES=1 python main.py bbh --model_name llama --model_path PY007/leoleg-1.1B-intermediate-step-480K-1T
-CUDA_VISIBLE_DEVICES=2 python main.py drop --model_name llama --model_path PY007/leoleg-1.1B-intermediate-step-480K-1T
-CUDA_VISIBLE_DEVICES=3 python main.py humaneval --model_name llama --n_sample 1 --model_path PY007/leoleg-1.1B-intermediate-step-480K-1T
-```
+Earlier versions of this document listed benchmark tables for internal LÉ checkpoints that have not been released. To avoid confusion these tables were removed. Verified results will accompany the official Arianna Method weights once they are published.
 
 ## Customization Points
 Key code for customization includes:
