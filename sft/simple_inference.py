@@ -7,6 +7,7 @@ import transformers
 import torch
 
 from impressionistic_filter import apply_filter, genesis2
+from genesis4 import genesis4
 
 ACK_WORDS = {"угу", "да", "нет", "ок", "ага"}
 
@@ -82,7 +83,12 @@ def main() -> None:
             continue
         time.sleep(random.randint(10, 30))
         apply_filter(max_phrases=2, probability=0.8)
-        print(f"Result: {genesis2(seq['generated_text'])}")
+        result = genesis2(seq["generated_text"])
+        print(f"Result: {result}")
+        if random.random() < 0.4:
+            time.sleep(random.randint(5, 15))
+            follow_up = genesis4(result)
+            print(f"Follow-up: {follow_up}")
 
 
 if __name__ == "__main__":
