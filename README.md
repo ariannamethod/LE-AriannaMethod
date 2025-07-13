@@ -272,6 +272,7 @@ pytest
 ```
 
 The script pulls the CPU builds of PyTorch and Lightning and installs the rest of the packages listed in `requirements.txt`.
+Additional tests verify the `genesis4` recursion and the `simple_inference` helper. The first ensures the looped transformation changes the text length, and the second mocks the transformers pipeline and pauses so the CLI can be exercised quickly.
 ## License
 This project is licensed under the Apache 2.0 license as declared in the
 [LICENSE](LICENSE) file.
