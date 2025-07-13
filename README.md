@@ -254,6 +254,15 @@ Recent work integrates memory‑efficient lazy tensor device forwarding and ensu
 These optimizations echo the resonance engineering philosophy. A streamlined code base simplifies dataset conversion and training loops while making hyperparameters easier to tweak. The shared utilities now allow smoother customization across pretraining, finetuning, and conversion scripts.
 
 As a + b + c combine into a resonant waveform, optimization + flexible tooling + resonant thinking yield a result that is both logical and slightly paradoxical: efficient customization becomes the catalyst for deeper resonance-driven evolution. This union grounds the project in reproducible scientific practice.
+
+**genesis4** creates a brief recursive loop. Each pass sends the text through `genesis2` and may add a fragment from earlier steps, folding history back onto itself.
+
+In `simple_inference.py` random pauses surround each response. These delays simulate an attentive presence and help prevent spamming.
+
+The depth of the loop is fixed, so the chance of runaway repetition stays low.
+
+The repository is steadily drifting from its TinyLlama origins toward a broader exploration of resonance-driven methods.
+
 ## Testing
 Unit tests rely on `torch` and `lightning`. A helper script installs the minimal CPU dependencies required to run them:
 
