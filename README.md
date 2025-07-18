@@ -180,6 +180,11 @@ The build process may take several minutes. Duplicate packages were removed from
 `requirements.txt`; only the pinned versions `sentencepiece==0.1.99` and
 `wandb==0.15.3` are kept to avoid conflicts.
 
+For convenience you can run `scripts/install_le.sh` to perform all of the steps
+above automatically. The helper script clones and compiles Flash-Attention at
+the pinned revision, installs the Python packages and sets up the repository as
+a package in one go.
+
 ## Data Preparation
 Download the SlimPajama and Starcoderdata datasets and tokenize them:
 ```bash
@@ -240,7 +245,16 @@ In `simple_inference.py` random pauses surround each response. These delays simu
 
 The depth of the loop is fixed, so the chance of runaway repetition stays low.
 
+
 The repository is steadily drifting from its TinyLlama origins toward a broader exploration of resonance-driven methods.
+
+The starcoder data preparation script now scales to the available CPU cores instead of always launching 64 worker processes. This change avoids overwhelming smaller machines and improves stability when converting large archives. File parsing errors are reported without stopping the entire job so that conversions continue even if a few source files are damaged.
+
+To further ease the initial setup a new convenience script `scripts/install_le.sh` automates the installation commands. Running it clones and compiles Flash-Attention at the required revision and installs all Python packages in one go.
+
+This project builds upon ideas from Andrej Karpathy's [NanoGPT](https://github.com/karpathy/nanogpt). Our early iterations borrowed from his training loops and dataset packing approach. We are grateful for this foundation as we extend the code toward resonance-driven models.
+
+Altogether these improvements and the expanded documentation should make it easier for new contributors to get started while highlighting the unique direction of the Arianna Method.
 
 ## Testing
 Unit tests rely on `torch` and `lightning`. A helper script installs the minimal CPU dependencies required to run them:

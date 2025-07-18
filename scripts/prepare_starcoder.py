@@ -54,8 +54,8 @@ def prepare_full(
     for filepath in filenames:
         print(f"Processing {filepath}")
         try:
-            contents = pd.read_parquet(filepath, engine='pyarrow')['content']
-        except:
+            contents = pd.read_parquet(filepath, engine="pyarrow")["content"]
+        except Exception:
             print(f"Error reading {filepath}!!")
             continue
         for text in contents:
@@ -82,7 +82,7 @@ def prepare(
     if filenames_subset:
         filenames = [f for f in filenames if any([prefix in f for prefix in filenames_subset])]
     filenames = filenames[:int(len(filenames) * percentage)]
-    num_processes = 64
+    num_processes = min(64, cpu_count())
     chunked_filenames = np.array_split(filenames, num_processes)
 
     processes = []
