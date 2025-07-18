@@ -151,16 +151,21 @@ surprisingly stable behavior.
 
 
 ## Installation
-The project expects CUDA 11.8. Install PyTorch 2.1.0 and build XFormers and Flash-Attention 2 from source:
+The project expects CUDA 11.8. Install PyTorch 2.1.0 and build XFormers and Flash-Attention 2 from source. The commands below pin the exact revisions used during development:
 ```bash
 pip install --index-url https://download.pytorch.org/whl/cu118 torch==2.1.0
 # build xformers
 pip uninstall ninja -y && pip install ninja -U
-pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers
+git clone https://github.com/facebookresearch/xformers.git
+cd xformers
+git checkout 7a7f2b8
+pip install -v -U .
+cd .. && rm -rf xformers
 
 # build flash-attention 2
 git clone https://github.com/Dao-AILab/flash-attention
 cd flash-attention
+git checkout 7a983df74215e035e566e37125b0a71e3618f39d
 python setup.py install
 cd csrc/rotary && pip install .
 cd ../layer_norm && pip install .
@@ -168,6 +173,8 @@ cd ../xentropy && pip install .
 cd ../.. && rm -rf flash-attention
 
 pip install -r requirements.txt tokenizers sentencepiece
+pip install -e .             # install the repository as a package
+pip install -r requirements-dev.txt  # additional tools for development
 ```
 The build process may take several minutes. Duplicate packages were removed from
 `requirements.txt`; only the pinned versions `sentencepiece==0.1.99` and

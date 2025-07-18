@@ -119,11 +119,16 @@ Le projet requiert CUDA 11.8. Installez PyTorch 2.1.0 et compilez XFormers ain
 pip install --index-url https://download.pytorch.org/whl/cu118 torch==2.1.0
 # construction de xformers
 pip uninstall ninja -y && pip install ninja -U
-pip install -v -U git+https://github.com/facebookresearch/xformers.git@main#egg=xformers
+git clone https://github.com/facebookresearch/xformers.git
+cd xformers
+git checkout 7a7f2b8
+pip install -v -U .
+cd .. && rm -rf xformers
 
 # construction de flash-attention 2
 git clone https://github.com/Dao-AILab/flash-attention
 cd flash-attention
+git checkout 7a983df74215e035e566e37125b0a71e3618f39d
 python setup.py install
 cd csrc/rotary && pip install .
 cd ../layer_norm && pip install .
@@ -131,6 +136,8 @@ cd ../xentropy && pip install .
 cd ../.. && rm -rf flash-attention
 
 pip install -r requirements.txt tokenizers sentencepiece
+pip install -e .             # installe le dépôt comme paquet
+pip install -r requirements-dev.txt  # dépendances pour le développement
 ```
 Le processus de compilation peut prendre plusieurs minutes. Les doublons ont été supprimés de `requirements.txt`; seules les versions épinglées `sentencepiece==0.1.99` et `wandb==0.15.3` sont conservées pour éviter les conflits.
 
