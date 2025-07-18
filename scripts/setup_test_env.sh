@@ -7,5 +7,5 @@ pip install --extra-index-url https://download.pytorch.org/whl/cpu torch==2.1.0
 pip install lightning==2.1.2
 
 # Install the rest of the dependencies
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 
